@@ -6,5 +6,5 @@ import com.mservice.orderservice.entity.OrderLineItems;
 
 public interface OrderService {
 
-   void placeOrder(OrderRequest orderRequest);
+   String placeOrder(OrderRequest orderRequest);
 }

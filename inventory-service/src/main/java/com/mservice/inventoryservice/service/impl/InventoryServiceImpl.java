@@ -2,12 +2,15 @@ package com.mservice.inventoryservice.service.impl;
 
 import com.mservice.inventoryservice.dto.InventoryResponse;
 import com.mservice.inventoryservice.repository.InventoryRepository;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class InventoryServiceImpl {
 
     private final InventoryRepository inventoryRepository;
@@ -17,8 +20,10 @@ public class InventoryServiceImpl {
     }
 
     @Transactional(readOnly = true)
+    @SneakyThrows
     public List<InventoryResponse> isInStock(List<String> skuCode){
-       return inventoryRepository.findBySkuCodeIn(skuCode).stream()
+        log.info("Checking Inventory");
+        return inventoryRepository.findBySkuCodeIn(skuCode).stream()
                .map(inventory ->
                    InventoryResponse.builder()
                            .skuCode(inventory.getSkuCode())
